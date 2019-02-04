@@ -13,7 +13,7 @@
   </div>
 </form>
 <div class="row">
-    {% for restaurant in restaurants %}
+    {% for restaurant in favorite_restaurants %}
     <div class="col-md-4">
         <div class="card my-card">
           {% if restaurant.logo %}
@@ -27,37 +27,10 @@
             <li class="list-group-item text-center">
                 <a href="{% url 'restaurant-detail' restaurant.id %}" class="btn btn-outline-dark">View</a>
             </li>
-              <button class= "btn"  onClick="fav_restaurant({{restaurant.id}})">
-                <i class="fas fa-thumbs-up {% if restaurant in favorite_restaurants %}text-warning{% endif %}" id="fav-{{restaurant.id}}"></i>
-<!--                 <span id="fav-{{restaurant.id}}"></span> -->
-              </button>
           </ul>
         </div>
     </div>
     {% endfor %}
 </div>
 
-<script type="text/javascript">
-    function fav_restaurant(id) {
-      var fav = "#fav-" + id
-      $.ajax(
-          {
-              type:'GET',
-              url: '/restaurants/' + id + '/favorite/',
-              error: function(){
-                  console.log('error');
-              },
-              success: function(data){
-                console.log(data)
-              if (data.action === 'favorite'){
-                  $(fav).addClass("text-warning")
-              }else{
-                  $(fav).removeClass("text-warning");
-              } 
-            },
-          })
-}
-</script>
-
 {% endblock content %}
-

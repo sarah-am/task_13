@@ -39,6 +39,7 @@ urlpatterns = [
 
     path('restaurants/favorite/',views.favorite_restaurants ,name='favorite-restaurant'),
     path('restaurants/<int:restaurant_id>/favorite/',views.restaurant_favorite ,name='restaurant-favorite'),
+    path('restaurants/favoriteslist/',views.favorite_restaurants ,name='favorite-restaurants'),
 ]
 
 if settings.DEBUG:
