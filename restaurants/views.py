@@ -5,6 +5,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.db.models import Q
 from django.http import JsonResponse
 
+import requests
+
 # This view will be used to favorite a restaurant
 def restaurant_favorite(request, restaurant_id):
     restaurant = Restaurant.objects.get(id=restaurant_id)
@@ -170,3 +172,17 @@ def restaurant_delete(request, restaurant_id):
         return redirect('no-access')
     restaurant_obj.delete()
     return redirect('restaurant-list')
+
+def added_movies(request):
+
+    q = request.GET.get('q')
+
+    url = "http://www.omdbapi.com/?apikey=47f97060&s=" + str(q)
+    response = requests.get(url)
+
+    context = {
+        'response' : response.json()
+    }
+
+    return render(request, 'movies_list.html', context)
+
